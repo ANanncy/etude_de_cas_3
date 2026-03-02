@@ -4,6 +4,7 @@
   "description": "",
   "main": "cypress.config.js",
   "scripts": {
+    "start": "serve -s . -l 8080",
     "test": "cypress run"
   },
   "keywords": [],
@@ -11,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "cypress": "^15.10.0",
-    "cypress-axe": "^1.7.0"
+    "cypress-axe": "^1.7.0",
+    "serve": "^14.2.5"
   }
 }
