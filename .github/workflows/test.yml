@@ -1,20 +1,9 @@
-name: CI/CD Cypress Tests
-
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -24,11 +13,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Ajouter node_modules/.bin au PATH
+        run: echo "$PWD/node_modules/.bin" >> $GITHUB_PATH
+
+      - name: Installer wait-on globalement
+        run: npm install -g wait-on
+
       - name: Start local server
         run: npm run start &
 
       - name: Wait for server
-        run: npm run wait-server
+        run: wait-on http://localhost:8080
 
       - name: Run Cypress Tests
         run: npm run test
