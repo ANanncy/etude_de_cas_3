@@ -1,4 +1,4 @@
-name: CI/CD Tests
+name: CI/CD Cypress Tests
 
 on:
   push:
@@ -9,33 +9,42 @@ on:
       - master
 
 jobs:
-  cypress-tests:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Cloner le dépôt
+      # Étape 1 : Cloner le dépôt
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Installer Node.js
+      # Étape 2 : Installer Node.js version 18
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
 
-      # 3️⃣ Installer les dépendances
+      # Étape 3 : Installer les dépendances
       - name: Install dependencies
         run: npm install
 
-      # 4️⃣ Lancer le serveur en arrière-plan
-      - name: Start server
-        run: npm start &
+      # Étape 4 : Lancer le serveur local (ton script start)
+      - name: Start local server
+        run: npm run start &
+        # le & permet de lancer le serveur en arrière-plan
 
-      # 5️⃣ Attendre que le site soit disponible
+      # Étape 5 : Attendre que le serveur soit prêt
       - name: Wait for server
-        run: npx wait-on http://127.0.0.1:8080/index.html --timeout 60000
+        run: npx wait-on http://localhost:8080
 
-      # 6️⃣ Lancer les tests Cypress
-      - name: Run Cypress tests
-        run: npx cypress run
+      # Étape 6 : Exécuter les tests Cypress
+      - name: Run Cypress Tests
+        run: npm run test
+        env:
+          CYPRESS_baseUrl: http://localhost:8080
 
+      # Étape 7 : Télécharger les résultats (optionnel)
+      - name: Upload Cypress results
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-results
+          path: cypress/results/*.xml
