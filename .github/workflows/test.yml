@@ -3,7 +3,7 @@ name: CI/CD Cypress Tests
 on:
   push:
     branches:
-      - master  # ou main, selon ta branche
+      - master  # ou main
   pull_request:
     branches:
       - master  # ou main
@@ -23,6 +23,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # Étape pour mettre en cache le binaire Cypress
+      - name: Cache Cypress binary
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-cypress-
+
       # Fixer les permissions des binaires dans node_modules/.bin
       - name: Fix permissions for node_modules/.bin
         run: chmod +x $PWD/node_modules/.bin/*
@@ -38,6 +47,10 @@ jobs:
       # Attendre que le serveur soit prêt
       - name: Wait for server
         run: wait-on http://localhost:8080
+
+      # Installer Cypress si le binaire est manquant
+      - name: Install Cypress binary
+        run: npx cypress install
 
       # Lancer les tests Cypress
       - name: Run Cypress Tests
