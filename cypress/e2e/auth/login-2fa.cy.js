@@ -27,7 +27,7 @@ describe('Connexion avec double authentification (2FA) - Code invalide', () => {
   const loginPage = new LoginPage();
 
   beforeEach(() => {
-    cy.visit('/'); // Visiter la page d'accueil (connexion)
+    cy.visit('http://127.0.0.1:8080/index.html'); // Visiter la page d'accueil (connexion)
   });
 
   it('Doit afficher un message d\'erreur pour un code 2FA incorrect', function () {

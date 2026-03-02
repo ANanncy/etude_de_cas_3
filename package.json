@@ -5,7 +5,6 @@
   "main": "cypress.config.js",
   "scripts": {
     "start": "serve -s . -l 8080",
-    "wait-server": "wait-on http://localhost:8080",
     "test": "cypress run"
   },
   "keywords": [],
@@ -14,7 +13,6 @@
   "devDependencies": {
     "cypress": "^15.10.0",
     "cypress-axe": "^1.7.0",
-    "serve": "^14.2.5",
-    "wait-on": "^9.0.4"
+    "serve": "^14.2.5"
   }
 }
