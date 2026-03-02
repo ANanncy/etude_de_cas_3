@@ -5,6 +5,7 @@
   "main": "cypress.config.js",
   "scripts": {
     "start": "serve -s . -l 8080",
+    "wait-server": "wait-on http://localhost:8080",
     "test": "cypress run"
   },
   "keywords": [],
