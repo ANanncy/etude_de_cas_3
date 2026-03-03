@@ -3,10 +3,10 @@ name: CI/CD Cypress Tests
 on:
   push:
     branches:
-      - master  # ou main
+      - master
   pull_request:
     branches:
-      - master  # ou main
+      - master
 
 jobs:
   test:
@@ -18,12 +18,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20  # recommandé pour éviter les warnings
+          node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      # Étape pour mettre en cache le binaire Cypress
       - name: Cache Cypress binary
         uses: actions/cache@v3
         with:
@@ -32,27 +31,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cypress-
 
-      # Fixer les permissions des binaires dans node_modules/.bin
-      - name: Fix permissions for node_modules/.bin
-        run: chmod +x $PWD/node_modules/.bin/*
-
-      # Ajouter cette étape pour que les binaires locaux soient trouvés
-      - name: Ajouter node_modules/.bin au PATH
-        run: echo "$PWD/node_modules/.bin" >> $GITHUB_PATH
-
-      # Lancer le serveur
-      - name: Start local server
-        run: serve -s . -l 8080 &
-
-      # Attendre que le serveur soit prêt
-      - name: Wait for server
-        run: wait-on http://localhost:8080
-
-      # Installer Cypress si le binaire est manquant
       - name: Install Cypress binary
         run: npx cypress install
 
-      # Lancer les tests Cypress
+      - name: Start local server
+        run: npx serve -s . -l 8080 &
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:8080
+
       - name: Run Cypress Tests
         run: npm run test
         env:
