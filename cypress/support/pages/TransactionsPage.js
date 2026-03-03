@@ -1,5 +1,6 @@
 // cypress/support/pages/TransactionsPage.js
 class TransactionsPage {
+
     recentTransactionsTitle() {
         return cy.get('h3.card-title').contains('Dernières transactions');
     }
@@ -20,18 +21,20 @@ class TransactionsPage {
         return cy.get('.transaction-date').eq(index);
     }
 
-    vverifyTransaction(index, description, amount, date) {
-    const normalize = (str) => str.trim().replace(/[\u00A0\u202F\u2009\u0020]+/g, ' ');
+    verifyTransaction(index, description, amount, date) {
+        const normalize = (str) => str.trim().replace(/[\u00A0\u202F\u2009\u0020]+/g, ' ');
 
-    this.transactionDescription(index)
-        .invoke('text')
-        .then((t) => expect(normalize(t)).to.include(normalize(description)));
-    this.transactionAmount(index)
-        .invoke('text')
-        .then((t) => expect(normalize(t)).to.equal(normalize(amount)));
-    this.transactionDate(index)
-        .invoke('text')
-        .then((t) => expect(normalize(t)).to.include(normalize(date)));
+        this.transactionDescription(index)
+            .invoke('text')
+            .then((t) => { expect(normalize(t)).to.include(normalize(description)); });
+
+        this.transactionAmount(index)
+            .invoke('text')
+            .then((t) => { expect(normalize(t)).to.equal(normalize(amount)); });
+
+        this.transactionDate(index)
+            .invoke('text')
+            .then((t) => { expect(normalize(t)).to.include(normalize(date)); });
     }
 }
 
