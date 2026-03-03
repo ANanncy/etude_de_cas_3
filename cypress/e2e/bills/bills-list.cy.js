@@ -5,13 +5,14 @@ describe('Lister les factures sur le site', () => {
   const loginPage = new LoginPage();
   const dashboardPage = new DashboardPage();
 
-  beforeEach(() => {
-    cy.fixture('users').as('usersData'); // charger la fixture des utilisateurs
+  beforeEach(function () {
+    // Charger la fixture transfer.json où se trouve balanceUser
+    cy.fixture('transfer').as('transferData'); 
     cy.visit('http://127.0.0.1:8080/index.html'); // page de connexion
   });
 
   it('Doit afficher toutes les factures avec fournisseur, référence, montant et date', function () {
-    const user = this.usersData.balanceUser;
+    const user = this.transferData.balanceUser; // <-- utiliser transferData au lieu de usersData
 
     // ---------------------------
     // Connexion

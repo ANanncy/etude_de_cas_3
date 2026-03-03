@@ -7,14 +7,19 @@ describe('Virement vers un bénéficiaire tiers', () => {
   const dashboardPage = new DashboardPage();
   const transferPage = new TransferPage();
 
-  beforeEach(() => {
-    cy.fixture('users').as('usersData'); // charger la fixture des utilisateurs
-    cy.fixture('beneficiaries').as('beneficiariesData'); // charger la fixture des bénéficiaires
-    cy.visit('http://127.0.0.1:8080/index.html'); // page de connexion
+  beforeEach(function () {
+    // Charger la fixture pour balanceUser
+    cy.fixture('transfer').as('transferData');
+
+    // Charger la fixture des bénéficiaires
+    cy.fixture('beneficiaries').as('beneficiariesData');
+
+    // Visiter la page de connexion
+    cy.visit('http://127.0.0.1:8080/index.html');
   });
 
   it('Doit effectuer un virement du compte courant vers un bénéficiaire', function () {
-    const user = this.usersData.balanceUser;
+    const user = this.transferData.balanceUser; // <-- correction
     const validBeneficiary = this.beneficiariesData[2].validBeneficiary;
 
     // ---------------------------
@@ -69,7 +74,7 @@ describe('Virement vers un bénéficiaire tiers', () => {
   });
 
   it('Doit annuler l’ajout d’un bénéficiaire', function () {
-    const user = this.usersData.balanceUser;
+    const user = this.transferData.balanceUser; // <-- correction
     const beneficiary = this.beneficiariesData[2].validBeneficiary;
 
     // ---------------------------
@@ -112,7 +117,6 @@ describe('Virement vers un bénéficiaire tiers', () => {
     // ---------------------------
     // Vérifications après annulation
     // ---------------------------
-
     cy.get('div.beneficiary-name')
       .contains(beneficiary.name)
       .should('not.exist');
