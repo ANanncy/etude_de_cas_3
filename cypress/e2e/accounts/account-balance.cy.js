@@ -7,7 +7,7 @@ describe('Affichage du solde multi-compte', () => {
 
   beforeEach(function () {
     // Charger la fixture
-    cy.fixture('transfer').as('usersData');
+    cy.fixture('users').as('usersData');
 
     // Visiter la page de connexion avant chaque test
     cy.visit('http://127.0.0.1:8080/index.html');
