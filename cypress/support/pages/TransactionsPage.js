@@ -20,22 +20,18 @@ class TransactionsPage {
         return cy.get('.transaction-date').eq(index);
     }
 
-    verifyTransaction(index, description, amount, date) {
-        this.transactionDescription(index)
-            .invoke('text')
-            .then((t) => {
-                expect(t.trim().replace(/\u00A0/g, ' ')).to.include(description);
-            });
-        this.transactionAmount(index)
-            .invoke('text')
-            .then((t) => {
-                expect(t.trim().replace(/\u00A0/g, ' ')).to.equal(amount);
-            });
-        this.transactionDate(index)
-            .invoke('text')
-            .then((t) => {
-                expect(t.trim().replace(/\u00A0/g, ' ')).to.include(date);
-            });
+    vverifyTransaction(index, description, amount, date) {
+    const normalize = (str) => str.trim().replace(/[\u00A0\u202F\u2009\u0020]+/g, ' ');
+
+    this.transactionDescription(index)
+        .invoke('text')
+        .then((t) => expect(normalize(t)).to.include(normalize(description)));
+    this.transactionAmount(index)
+        .invoke('text')
+        .then((t) => expect(normalize(t)).to.equal(normalize(amount)));
+    this.transactionDate(index)
+        .invoke('text')
+        .then((t) => expect(normalize(t)).to.include(normalize(date)));
     }
 }
 
