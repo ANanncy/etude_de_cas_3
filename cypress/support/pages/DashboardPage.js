@@ -36,11 +36,15 @@ class DashboardPage {
 
     // Méthode pour vérifier les montants exacts
     verifyAccountBalances(expectedCurrent, expectedSavings) {
-        this.currentAccountBalance()
-            .should('contain.text', expectedCurrent);
-        this.savingsAccountBalance()
-            .should('contain.text', expectedSavings);
-    }
+    this.currentAccountBalance()
+        .invoke('text')
+        .invoke('trim')
+        .should('eq', expectedCurrent);
+    this.savingsAccountBalance()
+        .invoke('text')
+        .invoke('trim')
+        .should('eq', expectedSavings);
+}
 
     // -------------------------
     // Cliquer sur le compte courant
