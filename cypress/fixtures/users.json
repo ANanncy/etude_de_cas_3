@@ -43,6 +43,11 @@
     "name": "Jean"
   },
 
+  "balanceUser": {
+  "email": "test@digitalbank.fr",
+  "password": "Test1234!"
+},
+
   "ChangePasswordInvalid": {
     "wrongCurrent": {
       "current": "WrongPassword!",
