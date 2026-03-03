@@ -7,7 +7,7 @@ describe('Affichage du solde multi-compte', () => {
 
   beforeEach(function () {
     // Charger la fixture
-    cy.fixture('users').as('usersData');
+    cy.fixture('transfer').as('usersData');
 
     // Visiter la page de connexion avant chaque test
     cy.visit('http://127.0.0.1:8080/index.html');
@@ -29,16 +29,31 @@ describe('Affichage du solde multi-compte', () => {
     // ---------------------------
     // Vérification des soldes individuels
     // ---------------------------
-    dashboardPage.verifyAccountBalances(
-      user.currentAccountBalance,
-      user.savingsAccountBalance
-    );
+    cy.get('[data-testid="balance-4"]')
+      .should('be.visible')
+      .invoke('text')
+      .then((text) => {
+        const value = parseFloat(text.replace(/\s|€/g, '').replace(',', '.'));
+        expect(value).to.eq(user.currentAccountBalance);
+      });
+
+    cy.get('[data-testid="balance-5"]')
+      .should('be.visible')
+      .invoke('text')
+      .then((text) => {
+        const value = parseFloat(text.replace(/\s|€/g, '').replace(',', '.'));
+        expect(value).to.eq(user.savingsAccountBalance);
+      });
 
     // ---------------------------
-    // Vérification du solde total multi-compte
+    // Vérification du solde total
     // ---------------------------
     cy.get('span.total-balance strong')
       .should('be.visible')
-      .and('contain.text', user.totalBalance);
+      .invoke('text')
+      .then((text) => {
+        const value = parseFloat(text.replace(/\s|€/g, '').replace(',', '.'));
+        expect(value).to.eq(user.totalBalance);
+      });
   });
 });

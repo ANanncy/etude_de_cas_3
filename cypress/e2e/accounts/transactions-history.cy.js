@@ -5,38 +5,40 @@ describe('Historique des transactions récentes - Compte Courant', () => {
   const loginPage = new LoginPage();
   const transactionsPage = new TransactionsPage();
 
-  beforeEach(() => {
-    cy.visit('/'); // Page de connexion
+  beforeEach(function () {
+    // Charger les données depuis la fixture transfer.json
+    cy.fixture('transfer').as('transferData');
+
+    // Visiter la page de connexion
+    cy.visit('http://127.0.0.1:8080/index.html');
   });
 
-  it('Doit afficher les 3 dernières transactions du compte courant', () => {
+  it('Doit afficher les 3 dernières transactions du compte courant', function () {
+    const user = this.transferData.balanceUser;
 
-    // Charger les données depuis la fixture
-    cy.fixture('users').then((users) => {
-      const user = users.balanceUser;
+    // Se connecter
+    loginPage.login(user.email, user.password);
 
-      // Se connecter
-      loginPage.login(user.email, user.password);
+    // Vérifier que la page principale affiche le texte "Bonjour, Utilisateur"
+    cy.contains('Bonjour, Utilisateur').should('be.visible');
 
-      // Vérifier que la page principale affiche le texte "Bonjour, Utilisateur"
-      cy.contains('Bonjour, Utilisateur').should('be.visible');
+    // Cliquer sur le compte courant pour afficher les transactions
+    cy.get('[data-testid="balance-4"]').click();
 
-      // Cliquer sur le compte courant pour afficher les transactions
-      cy.get('[data-testid="balance-4"]').click();
+    // Vérifier que le titre "Dernières transactions" est visible
+    transactionsPage.recentTransactionsTitle().should('be.visible');
 
-      // Vérifier que le titre "Dernières transactions" est visible
-      transactionsPage.recentTransactionsTitle().should('be.visible');
+    // Vérification dynamique des transactions
+    user.transactions.forEach((tx, index) => {
+      // Nettoyer le montant pour enlever espaces insécables ou retours à la ligne
+      const cleanAmount = tx.amount.replace(/\s+/g, ' ').trim();
 
-      // Vérification dynamique des transactions
-      user.transactions.forEach((tx, index) => {
-        transactionsPage.verifyTransaction(
-          index,
-          tx.description,
-          tx.amount,
-          tx.date
-        );
-      });
+      transactionsPage.verifyTransaction(
+        index,
+        tx.description,
+        cleanAmount, // utiliser le montant nettoyé
+        tx.date
+      );
     });
-
   });
 });
