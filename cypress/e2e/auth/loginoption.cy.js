@@ -48,6 +48,18 @@ describe('Connexion - Se souvenir de moi', () => {
         .should('be.visible')
         .and('contain.text', 'Bonjour');
 
+       // ---------------------------
+      // Rafraîchir la page
+      // ---------------------------
+      cy.reload();
+
+      // ---------------------------
+      // Vérifier que l'utilisateur est toujours connecté
+      // ---------------------------
+      dashboardPage.dashboardGreeting()
+        .should('be.visible')
+        .and('contain.text', 'Bonjour');
+
     });
   });
 
