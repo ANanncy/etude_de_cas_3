@@ -6,7 +6,7 @@ describe('Affichage du solde multi-compte', () => {
   const dashboardPage = new DashboardPage();
 
   beforeEach(function () {
-    // Charger la fixture
+    // Charger la fixtur
     cy.fixture('transfer').as('usersData');
 
     // Visiter la page de connexion avant chaque test
