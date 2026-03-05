@@ -40,16 +40,9 @@ jobs:
       - name: Wait for server
         run: npx wait-on http://localhost:8080
 
-      - name: Run Cypress Tests with Mochawesome reporter
-        run: npm run test:report
+      - name: Run Cypress Tests 
+        run: npm run test
         env:
           CYPRESS_baseUrl: http://localhost:8080
 
-      # ---------------------------
-      # 🔹 Nouvelle étape : Upload du rapport Mochawesome
-      # ---------------------------
-      - name: Upload Cypress Mochawesome report
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-mochawesome-report
-          path: cypress/reports/
+    
