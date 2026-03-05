@@ -5,7 +5,7 @@ describe('Réinitialisation de mot de passe - Cas passant et cas d\'erreur', () 
   const loginPage = new LoginPage();
 
   beforeEach(() => {
-    cy.visit('/');  // Visiter la page de connexion
+    cy.visit('http://127.0.0.1:8080/index.html');  // Visiter la page de connexion
     cy.fixture('success-message').as('successMessage'); // Charger la fixture du message de succès
   });
 

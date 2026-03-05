@@ -7,7 +7,7 @@ describe('Connexion - Se souvenir de moi', () => {
   const dashboardPage = new DashboardPage();
 
   beforeEach(() => {
-    cy.visit('index.html');
+    cy.visit('http://127.0.0.1:8080/index.html');
   });
 
   it('Doit rester connecté après rafraîchissement si "Se souvenir de moi" est coché', () => {
