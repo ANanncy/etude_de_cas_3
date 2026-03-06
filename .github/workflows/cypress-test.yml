@@ -1,4 +1,4 @@
-name: CI/CD Cypress Tests
+name: Cypress Tests
 on: workflow_dispatch
 
 permissions:
