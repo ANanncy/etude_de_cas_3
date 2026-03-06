@@ -8,18 +8,18 @@
   //}
 //};
 
-const { defineConfig } = require('cypress');
-const allureWriter = require('@shelex/cypress-allure-plugin/writer');
+const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
-  e2e: {
-    baseUrl: 'http://127.0.0.1:8080', // garde ton URL locale
-    setupNodeEvents(on, config) {
-      // Active le plugin Allure
-      allureWriter(on, config);
-
-      // Retourne la config comme avant
-      return config;
-    },
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'cypress/reports/mocha',
+    overwrite: false,
+    html: false,   // On génère le HTML via marge après la fusion
+    json: true,
   },
-});
+  e2e: {
+    baseUrl: 'http://localhost:8080',
+    setupNodeEvents(on, config) {},
+  },
+})
