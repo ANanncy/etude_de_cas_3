@@ -15,23 +15,23 @@ describe('Mise à jour des factures à payer après paiement', () => {
     const user = this.usersData.loginUser;  // Utilisation du loginUser depuis users.json
     const successMessage = this.successMessage.billPayment.success;  // Utilisation du message de succès depuis success-message.json
 
-    // ---------------------------
+    
     // Connexion
-    // ---------------------------
+   
     loginPage.login(user.email, user.password);  // Connexion avec l'email et mot de passe de loginUser
     dashboardPage.verifyGreeting('Utilisateur 👋');
 
-    // ---------------------------
+    
     // Aller sur l’onglet Factures
-    // ---------------------------
+   
     cy.get('[data-testid="tab-bills"]').click();
     cy.get('h2.card-title')
       .contains('Factures à payer')
       .should('be.visible');
 
-    // ---------------------------
+    
     // Payer la facture EDF
-    // ---------------------------
+    
     cy.get('[data-testid="btn-pay-bill-1"]').click();
     cy.get('[data-testid="btn-confirm-payment"]').click();
 
@@ -40,9 +40,9 @@ describe('Mise à jour des factures à payer après paiement', () => {
       .should('be.visible')
       .and('contain.text', successMessage);  // Utilisation du message de succès de la fixture
 
-    // ---------------------------
+    
     // Vérifier l’historique des factures payées
-    // ---------------------------
+   
     cy.contains('h3.card-title', 'Factures payées')
       .should('be.visible');
 
