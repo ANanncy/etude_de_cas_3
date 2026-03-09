@@ -3,10 +3,10 @@ name: CI/CD Cypress Tests loginoption
 on:
   push:
     branches:
-      - master
+      - bug/auth-se-souvenir-de-moi
   pull_request:
     branches:
-      - master
+      - bug/auth-se-souvenir-de-moi
 
 jobs:
   test:
