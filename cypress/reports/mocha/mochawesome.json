@@ -1,0 +1,109 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-03-09T22:30:37.380Z",
+    "end": "2026-03-09T22:30:44.076Z",
+    "duration": 6696,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "b4c02dc4-2b49-4cd5-86d2-91e9ab8d07e4",
+      "title": "",
+      "fullFile": "cypress\\e2e\\auth\\loginoption.cy.js",
+      "file": "cypress\\e2e\\auth\\loginoption.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0d0447cb-3dd7-4b1c-b59e-b712ece8f00e",
+          "title": "Connexion - Se souvenir de moi",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Doit rester connecté après rafraîchissement si \"Se souvenir de moi\" est coché",
+              "fullTitle": "Connexion - Se souvenir de moi Doit rester connecté après rafraîchissement si \"Se souvenir de moi\" est coché",
+              "timedOut": null,
+              "duration": 6610,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture('users').then(users => {\n  const user = users.loginUser;\n  // ---------------------------\n  // Remplir le formulaire de login\n  // ---------------------------\n  loginPage.emailInput().should('be.visible').type(user.email);\n  loginPage.passwordInput().should('be.visible').type(user.password);\n  // ---------------------------\n  // Cocher \"Se souvenir de moi\"\n  // ---------------------------\n  cy.get('[data-testid=\"checkbox-remember\"]').should('be.visible').check().should('be.checked');\n  // ---------------------------\n  // Se connecter\n  // ---------------------------\n  loginPage.loginButton().scrollIntoView().click({\n    force: true\n  });\n  // ---------------------------\n  // Vérifier connexion réussie\n  // ---------------------------\n  dashboardPage.dashboardGreeting().should('be.visible').and('contain.text', 'Bonjour');\n  // ---------------------------\n  // Rafraîchir la page\n  // ---------------------------\n  cy.reload();\n  // ---------------------------\n  // Vérifier que l'utilisateur est toujours connecté\n  // ---------------------------\n  dashboardPage.dashboardGreeting().should('be.visible').and('contain.text', 'Bonjour');\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `h2.card-title`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `h2.card-title`, but never found it.\n    at Context.eval (webpack://etude_de_cas-_3/./cypress/e2e/auth/loginoption.cy.js:60:9)\n    at getRet (http://localhost:8080/__cypress/runner/cypress_runner.js:122807:20)\n    at tryCatcher (http://localhost:8080/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:8080/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (http://localhost:8080/__cypress/runner/cypress_runner.js:122818:66)\n    at Context.then (http://localhost:8080/__cypress/runner/cypress_runner.js:123069:21)\n    at wrapped (http://localhost:8080/__cypress/runner/cypress_runner.js:146327:19)",
+                "diff": null
+              },
+              "uuid": "8c313568-267a-46fb-a170-2cc12f3d0fb9",
+              "parentUUID": "0d0447cb-3dd7-4b1c-b59e-b712ece8f00e",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "8c313568-267a-46fb-a170-2cc12f3d0fb9"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 6610,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mocha",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

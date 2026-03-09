@@ -6,7 +6,8 @@
   "scripts": {
     "start": "serve -s . -l 8080",
     "test": "cypress run",
-    "test:report": "cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports,overwrite=true,html=true,json=true"
+    "merge:reports": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/output.json",
+    "generate:report": "marge cypress/reports/output.json --reportDir cypress/reports/html --inline"
   },
   "keywords": [],
   "author": "",

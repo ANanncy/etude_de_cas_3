@@ -1,4 +1,4 @@
-name: CI/CD Cypress Tests
+name: CI/CD Cypress Tests loginoption
 
 on:
   push:
