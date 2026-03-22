@@ -36,7 +36,11 @@
         "amount": 30.00,
         "expectedCurrentAfter": "4 570,00",
         "expectedSavingsAfter": "15 030,00"
-      }
+      },
+      "transferTotal": {
+        "amount": 5000.00,
+        "expectedCurrentAfter": "0,00",  
+        "expectedSavingsAfter": "20 000,00"  
     }
   }
-  
+}  
