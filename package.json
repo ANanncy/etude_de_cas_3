@@ -5,7 +5,9 @@
   "main": "cypress.config.js",
   "scripts": {
     "start": "serve -s . -l 8080",
-    "test": "cypress run --env allure=true,allureResultsPath=allure-results"
+    "test": "cypress run",
+    "merge:reports": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/output.json",
+    "generate:report": "marge cypress/reports/output.json --reportDir cypress/reports/html --inline"
   },
   "keywords": [],
   "author": "",
