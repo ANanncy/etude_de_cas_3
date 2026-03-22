@@ -1,9 +1,5 @@
 name: CI/CD Cypress Tests
-
-on:
-  push:
-    branches:
-      - bug/auth-se-souvenir-de-moi 
+on: workflow_dispatch
 
 jobs:
   test:
@@ -14,7 +10,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 22
+          node-version: 20
 
       - name: Install dependencies
         run: npm ci
