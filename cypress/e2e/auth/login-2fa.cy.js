@@ -34,7 +34,7 @@ describe('Connexion avec double authentification (2FA) - Code invalide', () => {
     cy.fixture('users').then((users) => {
       cy.fixture('error-message').then((errors) => {
         const user = users.invalid2faUser; // Utilisateur 2FA invalide
-        const errorMessage = errors['2fa'].invalidCode; // "Code de vérification incorrect"
+        const errorMessage = errors['2fa'].invalidCode; // Message "Code de vérification incorrect"
 
         // Connexion avec email et mot de passe
         loginPage.login(user.email, user.password);
