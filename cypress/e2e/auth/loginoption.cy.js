@@ -53,9 +53,9 @@ describe('Connexion - Se souvenir de moi', () => {
       // ---------------------------
       cy.reload();
 
-      // ---------------------------
+      // --------------------------
       // Vérifier que l'utilisateur est toujours connecté
-      // ---------------------------
+      // --------------------------
       dashboardPage.dashboardGreeting()
         .should('be.visible')
         .and('contain.text', 'Bonjour');
