@@ -1,5 +1,9 @@
 name: CI/CD Cypress Tests
-on: workflow_dispatch
+
+on:
+  push:
+    branches:
+      - bug/auth-se-souvenir-de-moi
 
 jobs:
   test:
