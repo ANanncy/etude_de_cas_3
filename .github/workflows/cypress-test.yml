@@ -3,7 +3,7 @@ name: CI/CD Cypress Tests
 on:
   push:
     branches:
-      - bug/auth-se-souvenir-de-moi
+      - bug/auth-se-souvenir-de-moi 
 
 jobs:
   test:
