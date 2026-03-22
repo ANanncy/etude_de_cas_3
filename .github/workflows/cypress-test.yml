@@ -1,18 +1,17 @@
 name: CI/CD Cypress Tests
 
 on:
-  workflow_dispatch:      # permet le lancement manuel
+  workflow_dispatch:      # lancement manuel
   push:
     branches:
-      - bug/bills-bill-payment   # se déclenche automatiquement sur push
+      - bug/bills-bill-payment   # lancement automatique sur push
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -43,18 +42,13 @@ jobs:
         run: npm run test
         env:
           CYPRESS_baseUrl: http://localhost:8080
-        continue-on-error: true   # génère le rapport même si certains tests échouent
+        continue-on-error: true  # Génère le rapport même si des tests échouent
 
       - name: Merge JSON reports
-        run: |
-          if compgen -G "cypress/reports/mocha/*.json" > /dev/null; then
-            npm run merge:reports
-          else
-            echo "No JSON reports found, skipping merge"
-          fi
+        run: npm run merge:reports
 
       - name: Generate HTML report
-        run: npm run generate:report || echo "Skipping HTML report generation"
+        run: npm run generate:report
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4
